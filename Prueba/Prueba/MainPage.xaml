@@ -6,11 +6,61 @@
              mc:Ignorable="d"
              x:Class="Prueba.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <StackLayout>
+        <!--<CollectionView >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout VerticalItemSpacing="5" HorizontalItemSpacing="5" Orientation="Vertical" Span="3"></GridItemsLayout>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>-->
+
+        <Grid Padding="10" BackgroundColor="Green">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Frame HorizontalOptions="Start" Padding="0" CornerRadius="30" >
+                <Image  x:Name="xyz" HeightRequest="20" WidthRequest="30" ></Image>
+            </Frame>
+           
+
+            <Label Grid.Column="1"   FontFamily="Arial" FontSize="20" TextColor="White">Grupo x</Label>
+
+            <ImageButton  Margin="10,0,0,0" Grid.Column="3" Aspect="AspectFill"  HeightRequest="30" WidthRequest="30" Source="https://cdn1.vectorstock.com/i/1000x1000/60/55/search-icon-magnifier-icon-vector-20716055.jpg" ></ImageButton>
+            <ImageButton Grid.Column="4" BackgroundColor="Yellow" Aspect="Fill" HeightRequest="30" WidthRequest="30" HorizontalOptions="End"  Source="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKKhSduQm4d7h7XDzRkH2wNhNaKnkBHZltDjOXrBA7n3Ra4am9"></ImageButton>
+        </Grid>
+
+
+        <Grid BackgroundColor="Green" Margin="0,-6,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Text="CHATS" BackgroundColor="Green" FontFamily="Arial" FontAttributes="Bold" TextColor="White"></Button>            
+            <Button Text="CONTACTOS" Font="Arial" BackgroundColor="Green" FontAttributes="Bold" Grid.Column="1" TextColor="White"></Button>
+            <Button Text="AVISOS" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="Green" TextColor="White" Grid.Column="2"></Button>            
+        </Grid>
+
+
+        <StackLayout>
+                            <Frame  HorizontalOptions="CenterAndExpand"  CornerRadius="70" Padding="0" IsClippedToBounds="True">
+                        <Image x:Name="asd" HeightRequest="80"  WidthRequest="80" ></Image>
+                            </Frame>
+
+                            <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Alicia Moyetes</Label>
+                        </StackLayout>
+
+                    <!--</StackLayout>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>-->
+        <!--</CollectionView>-->
     </StackLayout>
 
 </ContentPage>

@@ -16,6 +16,10 @@ namespace Prueba
         public MainPage()
         {
             InitializeComponent();
+            asd.Source = ImageSource.FromUri(new Uri("https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png"));
+            xyz.Source = ImageSource.FromUri(new Uri("https://www.itesrc.edu.mx/logos/logotec%20(weld).jpg"));
         }
+
+      
     }
 }
