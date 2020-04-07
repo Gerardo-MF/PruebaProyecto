@@ -6,10 +6,41 @@
              mc:Ignorable="d"
              x:Class="Prueba.Views.AllChats">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <CollectionView>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                   
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Eliminar Chat"></MenuItem>
+                        </ViewCell.ContextActions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Frame BackgroundColor="Red" Padding="0" CornerRadius="30">
+                                <Image></Image>
+                            </Frame>
+
+                            <StackLayout Grid.Column="1">
+                                <Label>Nombre del perro alumno</Label>
+                                <Label>mensaje ahsdkjshkadjhsa</Label>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2">
+                                <Label>20:30 hora</Label>
+                            </StackLayout>
+                            
+                        </Grid>
+                        
+                    </ViewCell>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ContentPage.Content>
 </ContentPage>
