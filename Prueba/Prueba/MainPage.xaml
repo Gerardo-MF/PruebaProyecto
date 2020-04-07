@@ -50,7 +50,7 @@
 
         <StackLayout>
                             <Frame  HorizontalOptions="CenterAndExpand"  CornerRadius="70" Padding="0" IsClippedToBounds="True">
-                            <Image x:Name="asd" HeightRequest="80"  WidthRequest="80" ></Image>
+                            <Image Source="user1.png" HeightRequest="80"  WidthRequest="80" ></Image>
                             </Frame>
 
                             <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Alicia Moyetes</Label>
