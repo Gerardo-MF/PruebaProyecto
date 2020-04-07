@@ -18,20 +18,21 @@
 
         <Grid Padding="10" BackgroundColor="Green">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition Width="30" ></ColumnDefinition>
+                <ColumnDefinition Width="70" ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+              
+                
             </Grid.ColumnDefinitions>
-            <Frame HorizontalOptions="Start" Padding="0" CornerRadius="30" >
-                <Image  x:Name="xyz" HeightRequest="20" WidthRequest="30" ></Image>
+            <Frame HorizontalOptions="Start"  Padding="0" CornerRadius="30" >
+                <Image Source="user1.png" x:Name="xyz" HeightRequest="30" WidthRequest="30" ></Image>
             </Frame>
            
 
-            <Label Grid.Column="1"   FontFamily="Arial" FontSize="20" TextColor="White">Grupo x</Label>
+            <Label Grid.Column="1" BackgroundColor="Red"   FontFamily="Arial" FontSize="20" TextColor="White">Grupo x</Label>
 
-            <ImageButton  Margin="10,0,0,0" Grid.Column="3" Aspect="AspectFill"  HeightRequest="30" WidthRequest="30" Source="https://cdn1.vectorstock.com/i/1000x1000/60/55/search-icon-magnifier-icon-vector-20716055.jpg" ></ImageButton>
-            <ImageButton Grid.Column="4" BackgroundColor="Yellow" Aspect="Fill" HeightRequest="30" WidthRequest="30" HorizontalOptions="End"  Source="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKKhSduQm4d7h7XDzRkH2wNhNaKnkBHZltDjOXrBA7n3Ra4am9"></ImageButton>
+            <SearchBar  HeightRequest="12" WidthRequest="100" Grid.Column="2"  TextColor="White"></SearchBar>
+           
         </Grid>
 
 
