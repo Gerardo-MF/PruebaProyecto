@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prueba.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,6 +20,11 @@ namespace Prueba
  
         }
 
-      
+        private  void chatsboton_Clicked(object sender, EventArgs e)
+        {
+            AllChats all = new AllChats();
+            Navigation.PushAsync(all);
+           
+        }
     }
 }

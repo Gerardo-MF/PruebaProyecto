@@ -5,42 +5,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Prueba.Views.AllChats">
-    <ContentPage.Content>
-        <CollectionView>
-            
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                   
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Text="Eliminar Chat"></MenuItem>
-                        </ViewCell.ContextActions>
 
-                        <Grid>
+
+
+    
+    <StackLayout>
+
+      
+           
+        
+        
+        <Grid Padding="5" Margin="5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="60" ></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                                <ColumnDefinition Width="40"></ColumnDefinition>
+                               
                             </Grid.ColumnDefinitions>
 
-                            <Frame BackgroundColor="Red" Padding="0" CornerRadius="30">
-                                <Image></Image>
-                            </Frame>
+            <Frame CornerRadius="55" BackgroundColor="Red"
+           HeightRequest="55"
+           WidthRequest="55"
+           HorizontalOptions="StartAndExpand"
+          VerticalOptions="StartAndExpand"
+           Padding="0"
+           IsClippedToBounds="False">
+                <Image Source="user1.png" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+            </Frame>
 
-                            <StackLayout Grid.Column="1">
-                                <Label>Nombre del perro alumno</Label>
-                                <Label>mensaje ahsdkjshkadjhsa</Label>
+
+
+
+                            <StackLayout Grid.Column="1"> 
+                                <Label Margin="0,0,0,3" FontSize="18" TextColor="Black" FontAttributes="Bold" FontFamily="Arial">perro alumno</Label>
+                                <Label FontSize="14" FontFamily="Arial">mensaje </Label>
                             </StackLayout>
 
-                            <StackLayout Grid.Column="2">
-                                <Label>20:30 hora</Label>
+           
+                             <StackLayout Grid.Column="2" HorizontalOptions="End">
+                             <Label FontSize="14"  FontFamily="Arial">20:30</Label>
                             </StackLayout>
                             
                         </Grid>
-                        
-                    </ViewCell>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </ContentPage.Content>
+
+                </StackLayout>
+
+
 </ContentPage>
