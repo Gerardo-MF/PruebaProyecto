@@ -2,12 +2,14 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Prueba.Models;
 
 namespace Prueba
 {
     public partial class App : Application
     {
-        
+        public static String PersonalFolder { get; set; } =$"{Environment.GetFolderPath(Environment.SpecialFolder.Personal)}";
+        public static MainAvisos MainAvisos { get; set; } = new MainAvisos();
         public App()
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace Prueba
 
         protected override void OnResume()
         {
+
         }
     }
 }
