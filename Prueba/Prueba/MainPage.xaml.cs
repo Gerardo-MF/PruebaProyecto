@@ -26,5 +26,12 @@ namespace Prueba
             Navigation.PushAsync(all);
            
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Chat c = new  Chat();
+            Navigation.PushAsync(c);
+                  
+        }
     }
 }
