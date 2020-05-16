@@ -111,6 +111,7 @@
   <ItemGroup>
     <Content Include="NewFile1.txt" />
     <Content Include="NewFile2.txt" />
+    <AndroidResource Include="Resources\drawable\alert.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

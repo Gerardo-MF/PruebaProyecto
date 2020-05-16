@@ -40,7 +40,7 @@
 
                             <StackLayout Grid.Column="1"> 
                                 <Label Margin="0,0,0,3" FontSize="18" TextColor="Black" FontAttributes="Bold" FontFamily="Arial">perro alumno</Label>
-                                <Label FontSize="14" FontFamily="Arial">mensaje </Label>
+                               
                             </StackLayout>
 
            
