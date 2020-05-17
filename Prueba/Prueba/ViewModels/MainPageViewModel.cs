@@ -16,13 +16,13 @@ namespace Prueba.ViewModels
         public MainPageViewModel(Maestro maestro)
         {
             Descargar(maestro);
-            ListaAiumnos = App.MainAvisos.GetGrupoAlumnos();
             VerChatCommand = new Command(VerChat);
+            ListaAlumnos = App.MainAvisos.GetGrupoAlumnos();
         }
 
         public Command VerChatCommand { get; set; }
 
-        public List<Alumno> ListaAiumnos { get; set; }
+        public List<Alumno> ListaAlumnos { get; set; }
 
         public async void Descargar(Maestro maestro)
         {

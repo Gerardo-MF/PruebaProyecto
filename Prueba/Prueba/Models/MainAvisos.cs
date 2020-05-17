@@ -24,6 +24,7 @@ namespace Prueba.Models
             sQLiteConnection.CreateTable<Maestro>();
             //sQLiteConnection.CreateTable<Grupo>();
             sQLiteConnection.CreateTable<Alumno>();
+            sQLiteConnection.CreateTable<Escuela>();
         }
 
         public Maestro GetMaestro()
@@ -34,6 +35,11 @@ namespace Prueba.Models
         public List<Alumno> GetGrupoAlumnos()
         {
             return new List<Alumno>(sQLiteConnection.Table<Alumno>());
+        }
+
+        public List<Escuela> GetEscuelas()
+        {
+            return new List<Escuela>(sQLiteConnection.Table<Escuela>());
         }
 
         public async Task<Boolean> IniciarSesion(String clave, String password, String idEscuela)
@@ -79,12 +85,25 @@ namespace Prueba.Models
 
         public async Task DescargarEscuelas()
         {
-
+            if (sQLiteConnection.Table<Escuela>().Count() == 0)
+            {
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    httpClient = new HttpClient();
+                    HttpResponseMessage respuesta = await httpClient.GetAsync("https://avisosprimaria.itesrc.net/api/AdminApp/GetEscuelas");
+                    if (respuesta.IsSuccessStatusCode)
+                    {
+                        String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+                        List<Escuela> escuelas = JsonConvert.DeserializeObject<List<Escuela>>(datosRespuesta);
+                        sQLiteConnection.InsertAll(escuelas);
+                    }
+                }
+            }
         }
 
         public async Task DescargarGrupo(Int32 idMaestro, Int32 idEscuela)
         {
-            if (sQLiteConnection.Table<Grupo>().Count() == 0)
+            if (sQLiteConnection.Table<Alumno>().Count() == 0)
             {
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
@@ -96,12 +115,11 @@ namespace Prueba.Models
                 };
 
                     HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/MaestrosApp/GetGrupo", new FormUrlEncodedContent(datos));
-
                     if (respuesta.IsSuccessStatusCode)
                     {
                         String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
                         Grupo g = JsonConvert.DeserializeObject<Grupo>(datosRespuesta);
-                        sQLiteConnection.InsertAll(g.ListaAlumnos);
+                        sQLiteConnection.InsertAll(g.Alumnos);
                     }
                     else
                     {
@@ -121,6 +139,7 @@ namespace Prueba.Models
         {
 
         }
+
 
 
 

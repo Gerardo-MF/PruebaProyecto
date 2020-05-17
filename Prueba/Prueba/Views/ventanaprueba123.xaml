@@ -4,8 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:my="clr-namespace:Prueba.ViewModels"
               xmlns:local="clr-namespace:Prueba"
              x:Class="Prueba.Views.ventanaprueba123">
+
+    <ContentPage.BindingContext>
+        <my:LoginViewModel></my:LoginViewModel>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Grid Padding="12" BackgroundColor="#0D66D0">
@@ -29,23 +34,23 @@
 
                 <Grid Margin="0,20,0,0">
                     <Label Margin="0,0,20,0" TextColor="#7F7E7C" FontSize="12">Escuela</Label>
-                    <Picker></Picker>
+                    <Picker  ItemsSource="{Binding ListaEscuelas}" SelectedItem="{Binding Escuela}" ItemDisplayBinding="{Binding NombreEscuela}"></Picker>
                 </Grid>
             
                <Grid>
                 <Label Margin="0,0,20,0" TextColor="#7F7E7C" FontSize="12">Clave</Label>
-                <Entry Text="{Binding Clave}"></Entry>
+                <Entry Text="{Binding Clave}"  Keyboard="Numeric" MaxLength="4"></Entry>
                </Grid>
 
                 <Grid>
                     <Label Margin="0,0,20,0" TextColor="#7F7E7C" FontSize="12">Password</Label>
-                    <Entry IsPassword="True" Text="{Binding Password}"></Entry>
+                    <Entry IsPassword="True" Text="{Binding Password}" Keyboard="Text"></Entry>
                 </Grid>
 
-                <Label Margin="0,20,0,0" Text="ERROR" TextColor="Red" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                <Label Margin="0,20,0,0" Text="{Binding Errores}" TextColor="Red" HorizontalOptions="Start" FontAttributes="Bold"></Label>
 
 
-               <Button Margin="0,10,0,0" Text="Continuar" CornerRadius="20" TextColor="White" HorizontalOptions="End" BackgroundColor="#1473E6"></Button>
+                <Button Command="{Binding InicarSesionCommand}" Margin="0,10,0,0" Text="Continuar" CornerRadius="20" TextColor="White" HorizontalOptions="End" BackgroundColor="#1473E6"></Button>
                 
 
         </StackLayout>

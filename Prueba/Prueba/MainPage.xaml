@@ -52,10 +52,10 @@
         </Grid>
 
 
-        <StackLayout>
-            <CollectionView>
+        <StackLayout IsVisible="False">
+            <CollectionView ItemsSource="{Binding ListaAlumnos}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout> 
+                    <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
@@ -64,21 +64,62 @@
                             <Frame  HorizontalOptions="CenterAndExpand"  CornerRadius="70" Padding="0" IsClippedToBounds="True">
                                 <Image Source="user1.png" HeightRequest="80"  WidthRequest="80" ></Image>
                             </Frame>
-
-                            <Label HorizontalTextAlignment="Center" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
+                            <Label HorizontalTextAlignment="Center" Text="{Binding Nombre}" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-                            
-                  
+        </StackLayout>
+
+
+
+
+        <CollectionView ItemsSource="{Binding ListaAlumnos}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60" ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Frame CornerRadius="55" BackgroundColor="Red"
+           HeightRequest="55"
+           WidthRequest="55"
+           HorizontalOptions="StartAndExpand"
+          VerticalOptions="StartAndExpand"
+           Padding="0"
+           IsClippedToBounds="False">
+                            <Image Source="user1.png" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+                        </Frame>
+
+
+                        <StackLayout Grid.Column="1">
+                            <Label Margin="0,0,0,3" FontSize="18" TextColor="Black" FontAttributes="Bold" FontFamily="Arial" Text="{Binding Nombre}"></Label>
+
                         </StackLayout>
 
-                    <!--</StackLayout>
-
+                    </Grid>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>-->
-        <!--</CollectionView>-->
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+                  
     </StackLayout>
 
    
