@@ -24,7 +24,7 @@
                     
                 
 
-                <Label FontAttributes="Bold" TextColor="White" Grid.Column="1">Por su seguridad, verifique su identidad</Label>
+                <Label FontAttributes="Bold" FontSize="13" TextColor="White" Grid.Column="1">Por su seguridad, verifique su identidad</Label>
             </Grid>
         
         <StackLayout Margin="30">

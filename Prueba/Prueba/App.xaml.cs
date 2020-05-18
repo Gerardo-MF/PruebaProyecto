@@ -14,7 +14,7 @@ namespace Prueba
         {
             InitializeComponent();
 
-            MainPage = new ventanaprueba123();
+             MainPage = new ventanaprueba123();
             //MainPage = new NavigationPage(new MainPage());
         }
 

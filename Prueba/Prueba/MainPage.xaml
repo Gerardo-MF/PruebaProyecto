@@ -17,7 +17,7 @@
                 <DataTemplate>
                     <StackLayout>-->
 
-        <Grid Padding="10" BackgroundColor="Green">
+        <Grid Padding="10" BackgroundColor="#0D66D0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" ></ColumnDefinition>
                 <ColumnDefinition Width="70" ></ColumnDefinition>
@@ -37,22 +37,22 @@
         </Grid>
 
 
-        <Grid BackgroundColor="Green" Margin="0,-6,0,0">
+        <Grid BackgroundColor="#0D66D0" Margin="0,-6,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="chatsboton" Clicked="chatsboton_Clicked" Text="CHATS" BackgroundColor="Green" FontFamily="Arial" FontAttributes="Bold" TextColor="White">
+            <Button x:Name="chatsboton" Clicked="chatsboton_Clicked" Text="CHATS" BackgroundColor="#0D66D0" FontFamily="Arial" FontAttributes="Bold" TextColor="White">
 
             </Button>
-            <Button Text="CONTACTOS" Font="Arial" BackgroundColor="Green" FontAttributes="Bold" Grid.Column="1" TextColor="White"></Button>
-            <Button Text="AVISOS" Clicked="Button_Clicked" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="Green" TextColor="White" Grid.Column="2"></Button>
+            <Button Text="CONTACTOS" Font="Arial" BackgroundColor="#0D66D0" FontAttributes="Bold" Grid.Column="1" TextColor="White"></Button>
+            <Button Text="AVISOS" Clicked="Button_Clicked" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="White" Grid.Column="2"></Button>
         </Grid>
 
 
-        <StackLayout IsVisible="False">
+        <StackLayout IsVisible="True">
             <CollectionView ItemsSource="{Binding ListaAlumnos}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout>
@@ -64,7 +64,7 @@
                             <Frame  HorizontalOptions="CenterAndExpand"  CornerRadius="70" Padding="0" IsClippedToBounds="True">
                                 <Image Source="user1.png" HeightRequest="80"  WidthRequest="80" ></Image>
                             </Frame>
-                            <Label HorizontalTextAlignment="Center" Text="{Binding Nombre}" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
+                            <Label HorizontalTextAlignment="Center" TextColor="Black" FontSize="14" FontAttributes="Bold"  Text="{Binding Nombre}" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -74,7 +74,7 @@
 
 
 
-        <CollectionView ItemsSource="{Binding ListaAlumnos}">
+        <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="False">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="5" Margin="5">
@@ -85,9 +85,9 @@
 
                         </Grid.ColumnDefinitions>
 
-                        <Frame CornerRadius="55" BackgroundColor="Red"
-           HeightRequest="55"
-           WidthRequest="55"
+                        <Frame CornerRadius="50" 
+           HeightRequest="50"
+           WidthRequest="50"
            HorizontalOptions="StartAndExpand"
           VerticalOptions="StartAndExpand"
            Padding="0"
@@ -98,9 +98,13 @@
                         </Frame>
 
 
-                        <StackLayout Grid.Column="1">
-                            <Label Margin="0,0,0,3" FontSize="18" TextColor="Black" FontAttributes="Bold" FontFamily="Arial" Text="{Binding Nombre}"></Label>
+                        <StackLayout Grid.Column="1" Margin="0,3,0,0">
+                            <Label Margin="0,0,0,3" FontSize="17" TextColor="Black" FontAttributes="Bold" FontFamily="Arial" Text="{Binding Nombre}"></Label>
 
+                        </StackLayout>
+
+                        <StackLayout Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="End">
+                            <Label FontSize="13"  FontFamily="Arial">20:30</Label>
                         </StackLayout>
 
                     </Grid>
