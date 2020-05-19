@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:Prueba;assembly=Prueba"
+             x:Name="viewMain"
              x:Class="Prueba.MainPage"  NavigationPage.HasNavigationBar="False">
 
         <StackLayout>
@@ -61,6 +62,9 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={Reference viewMain},Path=BindingContext.VerChatCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
                             <Frame  HorizontalOptions="CenterAndExpand"  CornerRadius="70" Padding="0" IsClippedToBounds="True">
                                 <Image Source="user1.png" HeightRequest="80"  WidthRequest="80" ></Image>
                             </Frame>

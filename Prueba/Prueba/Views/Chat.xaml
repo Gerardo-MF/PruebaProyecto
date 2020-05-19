@@ -12,27 +12,25 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40"></ColumnDefinition>
                     <ColumnDefinition ></ColumnDefinition>
-                    
-                </Grid.ColumnDefinitions>
+                 </Grid.ColumnDefinitions>
 
                 <StackLayout Orientation="Horizontal" Padding="2">
                     <Frame Padding="0" CornerRadius="30" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
-
                         <Image Source="user1.png" HeightRequest="28" WidthRequest="25" HorizontalOptions="Start"  VerticalOptions="Start"></Image>
                     </Frame>
                 </StackLayout>
-                
 
-                <Label Grid.Column="1" FontSize="20" Padding="0" FontFamily="Arial" TextColor="White">El pinche perro alumo</Label>
+
+                <Label Grid.Column="1" Text="{Binding Nombre}" FontSize="20" Padding="0" FontFamily="Arial" TextColor="White"></Label>
 
                
               
             </Grid>
 
-            <CollectionView>
+            <CollectionView ItemsSource="{Binding ListaAvisos}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Label HorizontalOptions="End">Mensaje</Label>
+                        <Label FontSize="20" Text="{Binding Titulo}"></Label>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

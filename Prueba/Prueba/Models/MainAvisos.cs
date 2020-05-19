@@ -25,6 +25,7 @@ namespace Prueba.Models
             //sQLiteConnection.CreateTable<Grupo>();
             sQLiteConnection.CreateTable<Alumno>();
             sQLiteConnection.CreateTable<Escuela>();
+            sQLiteConnection.CreateTable<Avisos>();
         }
 
         public Maestro GetMaestro()
@@ -40,6 +41,10 @@ namespace Prueba.Models
         public List<Escuela> GetEscuelas()
         {
             return new List<Escuela>(sQLiteConnection.Table<Escuela>());
+        }
+        public List<Avisos> GetBAvisosByAlumno(String Clave)
+        {
+            return new List<Avisos>(sQLiteConnection.Table<Avisos>().Where(x => x.ClaveAlumno == Clave));
         }
 
         public async Task<Boolean> IniciarSesion(String clave, String password, String idEscuela)
@@ -135,9 +140,37 @@ namespace Prueba.Models
 
         }
 
-        public async Task DescargarChat()
+        public async Task DescargarAvisos(String Clave)
         {
+            if (sQLiteConnection.Table<Avisos>().Count(x=>x.ClaveAlumno==Clave) == 0)
+            {
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    httpClient = new HttpClient();
+                    Dictionary<String, String> datos = new Dictionary<String, String>()
+                {
+                    {"clave",Clave}
+                };
 
+                    HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/AlumnosApp/AvisosByClaveAlumno", new FormUrlEncodedContent(datos));
+                    if (respuesta.IsSuccessStatusCode)
+                    {
+                        String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+                        List<Avisos> lista = JsonConvert.DeserializeObject<List<Avisos>>(datosRespuesta);
+                        lista.ForEach(x => { x.ClaveAlumno = Clave; });
+                        sQLiteConnection.InsertAll(lista);
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("Sin conexión a Internet");
+                }
+            }
         }
 
 

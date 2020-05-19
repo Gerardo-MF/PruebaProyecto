@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
+using Prueba.Views;
 
 namespace Prueba.ViewModels
 {
@@ -12,15 +13,16 @@ namespace Prueba.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         Maestro m;
+        Chat viewChat;
 
         public MainPageViewModel(Maestro maestro)
         {
             Descargar(maestro);
-            VerChatCommand = new Command(VerChat);
+            VerChatCommand = new Command<Alumno>(VerChat);
             ListaAlumnos = App.MainAvisos.GetGrupoAlumnos();
         }
-
-        public Command VerChatCommand { get; set; }
+        
+        public Command<Alumno> VerChatCommand { get; set; }
 
         public List<Alumno> ListaAlumnos { get; set; }
 
@@ -37,9 +39,24 @@ namespace Prueba.ViewModels
             }
         }
 
-        private void VerChat(object obj)
+        private void VerChat(Alumno alumno)
         {
-            throw new NotImplementedException();
+            if (Connectivity.NetworkAccess==NetworkAccess.Internet)
+            {
+                if (viewChat==null)
+                {
+                    viewChat = new Chat();
+                }
+
+                ChatViewModel chatViewModel = new ChatViewModel(alumno.Clave);
+                viewChat.BindingContext = chatViewModel;
+                App.Current.MainPage.Navigation.PushAsync(viewChat);
+            }
+            else
+            {
+                IMessage mensaje = DependencyService.Get<IMessage>();
+                mensaje.ShowToast("Sin conexión a internet");
+            }
         }
 
 
