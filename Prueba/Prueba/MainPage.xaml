@@ -53,7 +53,7 @@
         </Grid>
 
 
-        <StackLayout IsVisible="True">
+        <StackLayout IsVisible="False">
             <CollectionView ItemsSource="{Binding ListaAlumnos}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout>
@@ -78,7 +78,7 @@
 
 
 
-        <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="False">
+        <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="True">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="5" Margin="5">
