@@ -45,20 +45,17 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="chatsboton" Clicked="chatsboton_Clicked" Text="CHATS" BackgroundColor="#0D66D0" FontFamily="Arial" FontAttributes="Bold" TextColor="White">
-
-            </Button>
-            <Button Text="CONTACTOS" Font="Arial" BackgroundColor="#0D66D0" FontAttributes="Bold" Grid.Column="1" TextColor="White"></Button>
-            <Button Text="AVISOS" Clicked="Button_Clicked" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="White" Grid.Column="2"></Button>
+            <Button x:Name="chatsboton" Command="{Binding SeleccionarBoton}" CommandParameter="Chat" Text="CHATS" BackgroundColor="{Binding BCBtnChats}" FontFamily="Arial" FontAttributes="Bold" TextColor="White"></Button>
+            <Button Text="CONTACTOS" Command="{Binding SeleccionarBoton}" CommandParameter="Contactos" Font="Arial" BackgroundColor="{Binding BCBtnContactos}" FontAttributes="Bold" Grid.Column="1" TextColor="White"></Button>
+            <Button Text="AVISOS" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="White" Grid.Column="2"></Button>
         </Grid>
-
-
-        <StackLayout IsVisible="False">
+                        
+        <StackLayout IsVisible="{Binding ContactosVisible}">
             <CollectionView ItemsSource="{Binding ListaAlumnos}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout>
                 </CollectionView.ItemsLayout>
-
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
@@ -77,8 +74,7 @@
 
 
 
-
-        <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="True">
+        <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="{Binding ChatContactVisible}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="5" Margin="5">
