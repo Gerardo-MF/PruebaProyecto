@@ -23,7 +23,7 @@ namespace Prueba.ViewModels
         public MainPageViewModel(Maestro maestro)
         {
             BCBtnChats = Color.FromHex("ffffff");
-            BCBtnContactos = Color.FromHex("0D66D0");
+            BCBtnContactos = Color.FromHex("ffffff");
             ChatContactVisible = true;
             ContactosVisible = false;
             Descargar(maestro);
@@ -100,20 +100,22 @@ namespace Prueba.ViewModels
         {
             if (tipo== "Chat")
             {
-                BCBtnChats = Color.FromHex("ffffff");
-                BCBtnContactos = Color.FromHex("0D66D0");
+                BCBtnChats = Color.FromHex("EF8012");
+                BCBtnContactos = Color.FromHex("ffffff");
                 ContactosVisible = false;
                 ChatContactVisible = true;
             }
             else if (tipo== "Contactos")
             {
-                BCBtnChats = Color.FromHex("0D66D0");
-                BCBtnContactos = Color.FromHex("ffffff");
+                BCBtnChats = Color.FromHex("ffffff");
+                BCBtnContactos = Color.FromHex("EF8012");
                 ContactosVisible = true;
                 ChatContactVisible = false;
             }
             else
             {
+                BCBtnChats = Color.FromHex("ffffff");
+                BCBtnContactos = Color.FromHex("ffffff");
                 ContactosVisible = false;
                 chatsContact = false;
             }

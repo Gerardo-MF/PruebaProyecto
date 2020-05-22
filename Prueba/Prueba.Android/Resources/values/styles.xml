@@ -3,6 +3,10 @@
 
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
+  
+  <style name="MiTema" parent="Theme.AppCompat.Light.DarkActionBar" >
+    <item name="android:windowBackground">@drawable/SplashS</item>
+  </style>
   <!-- Base theme applied no matter what API -->
   <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
     <!--If you are using revision 22.1 please use just windowNoTitle. Without android:-->
@@ -11,7 +15,7 @@
     <item name="windowActionBar">false</item>
     <!-- Set theme colors from https://aka.ms/material-colors -->
     <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">#2196F3</item>
+    <item name="colorPrimary">#0D66D0</item>
     <!-- colorPrimaryDark is used for the status bar -->
     <item name="colorPrimaryDark">#1976D2</item>
     <!-- colorAccent is used as the default value for colorControlActivated
@@ -20,6 +24,8 @@
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>
+    
+   
 
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>

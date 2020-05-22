@@ -4,12 +4,16 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:local="clr-namespace:Prueba;assembly=Prueba"
+             xmlns:local="clr-namespace:Prueba"
              x:Name="viewMain"
-             x:Class="Prueba.MainPage"  NavigationPage.HasNavigationBar="False">
+             x:Class="Prueba.MainPage" Title="Grupo X" >
+
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="Cerrar Sesion" Order="Secondary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
 
         <StackLayout>
-        <!--<CollectionView >
+        <!--<CollectionView>
             <CollectionView.ItemsLayout>
                 <GridItemsLayout VerticalItemSpacing="5" HorizontalItemSpacing="5" Orientation="Vertical" Span="3"></GridItemsLayout>
             </CollectionView.ItemsLayout>
@@ -18,7 +22,7 @@
                 <DataTemplate>
                     <StackLayout>-->
 
-        <Grid Padding="10" BackgroundColor="#0D66D0">
+        <!--<Grid Padding="10" BackgroundColor="#0D66D0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" ></ColumnDefinition>
                 <ColumnDefinition Width="70" ></ColumnDefinition>
@@ -33,9 +37,9 @@
 
             <Label Grid.Column="1"   FontFamily="Arial" FontSize="20" TextColor="White">Grupo x</Label>
 
-            <SearchBar  HeightRequest="12" WidthRequest="100" Grid.Column="2"  TextColor="White"></SearchBar>
+          
            
-        </Grid>
+        </Grid>-->
 
 
         <Grid BackgroundColor="#0D66D0" Margin="0,-6,0,0">
@@ -45,8 +49,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="chatsboton" Command="{Binding SeleccionarBoton}" CommandParameter="Chat" Text="CHATS" BackgroundColor="{Binding BCBtnChats}" FontFamily="Arial" FontAttributes="Bold" TextColor="White"></Button>
-            <Button Text="CONTACTOS" Command="{Binding SeleccionarBoton}" CommandParameter="Contactos" Font="Arial" BackgroundColor="{Binding BCBtnContactos}" FontAttributes="Bold" Grid.Column="1" TextColor="White"></Button>
+            <Button x:Name="chatsboton" Command="{Binding SeleccionarBoton}" CommandParameter="Chat" Text="CHATS" BackgroundColor="#0D66D0" FontFamily="Arial" FontAttributes="Bold" TextColor="{Binding BCBtnChats}"></Button>
+            <Button Text="CONTACTOS" Command="{Binding SeleccionarBoton}" CommandParameter="Contactos" Font="Arial" BackgroundColor="#0D66D0" FontAttributes="Bold" Grid.Column="1" TextColor="{Binding BCBtnContactos}"></Button>
             <Button Text="AVISOS" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="White" Grid.Column="2"></Button>
         </Grid>
                         
@@ -98,12 +102,12 @@
                         </Frame>
 
 
-                        <StackLayout Grid.Column="1" Margin="0,3,0,0">
+                        <StackLayout Grid.Column="1" Margin="0,5,0,0">
                             <Label Margin="0,0,0,3" FontSize="17" TextColor="Black" FontAttributes="Bold" FontFamily="Arial" Text="{Binding Nombre}"></Label>
 
                         </StackLayout>
 
-                        <StackLayout Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="End">
+                        <StackLayout Margin="0,7,0,0" Grid.Column="2" HorizontalOptions="End">
                             <Label FontSize="13"  FontFamily="Arial">20:30</Label>
                         </StackLayout>
 
@@ -125,6 +129,5 @@
 
                   
     </StackLayout>
-
-   
-</ContentPage>
+ 
+ </ContentPage>
