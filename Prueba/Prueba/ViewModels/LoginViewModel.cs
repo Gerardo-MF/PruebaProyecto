@@ -29,7 +29,7 @@ namespace Prueba.ViewModels
 
         }
 
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         //public List<Escuela> ListaEscuelas { get; set; }
@@ -92,7 +92,16 @@ namespace Prueba.ViewModels
             ListaEscuelas = App.MainAvisos.GetEscuelas();
         }
 
-       
+
+        private async void DescargarAvisos(string escuela)
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                await App.MainAvisos.DescargarAvisosGenerales(escuela);
+            }
+           
+        }
+
 
         private async void IniciarSesion(object obj)
         {
@@ -107,12 +116,14 @@ namespace Prueba.ViewModels
                         {
                             viewMain = new MainPage();
                         }
+                        DescargarAvisos(escuela.NombreEscuela);
                         maestro = App.MainAvisos.GetMaestro();
                         MainPageViewModel mainPageViewModel = new MainPageViewModel(maestro);
                         viewMain.BindingContext = mainPageViewModel;
                         Application.Current.MainPage = new NavigationPage(viewMain);
                     }
                 }
+               
             }
             else
             {

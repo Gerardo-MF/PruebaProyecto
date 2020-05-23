@@ -81,6 +81,7 @@ namespace Prueba.ViewModels
 
         public List<Alumno> ListaAlumnos { get; set; }
         public List<AvisosGenerales> ListaAvisos { get; set; }
+       
 
         public async void Descargar(Maestro maestro)
         {
@@ -137,7 +138,7 @@ namespace Prueba.ViewModels
 
         private void Seleccionar(String tipo)
         {
-            if (tipo== "Chat")
+            if (tipo == "Chat")
             {
                 BCBtnChats = Color.FromHex("EF8012");
                 BCBtnContactos = Color.FromHex("ffffff");
@@ -146,7 +147,7 @@ namespace Prueba.ViewModels
                 ContactosVisible = false;
                 ChatContactVisible = true;
             }
-            else if (tipo== "Contactos")
+            else if (tipo == "Contactos")
             {
                 BCBtnChats = Color.FromHex("ffffff");
                 BCBtnAvisos = Color.FromHex("ffffff");
@@ -155,7 +156,7 @@ namespace Prueba.ViewModels
                 ContactosVisible = true;
                 ChatContactVisible = false;
             }
-            else if (tipo == "avisos")
+            else 
             {
                 BCBtnChats = Color.FromHex("ffffff");
                 BCBtnContactos = Color.FromHex("ffffff");
@@ -164,13 +165,6 @@ namespace Prueba.ViewModels
                 ContactosVisible = false;
                 chatsContact = false;
             }
-            else 
-            {
-                AvisosVisible = false;
-                ContactosVisible = false;
-                chatsContact = false;
-            }
-
            
 
         }

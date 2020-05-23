@@ -155,7 +155,7 @@ namespace Prueba.Models
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
                     HttpClient client = new HttpClient();
-                    HttpResponseMessage datos = await client.GetAsync($"https://avisosPrimaria.itersc.net/api/AvisosGenerales/NombreEscuela/{NombreEscuela}");
+                    HttpResponseMessage datos = await client.GetAsync($"https://avisosprimaria.itesrc.net/api/AvisosGenerales/NombreEscuela/{NombreEscuela}");
                     if (datos.IsSuccessStatusCode)
                     {
                         string datosRespuesta = await datos.Content.ReadAsStringAsync();

@@ -120,16 +120,10 @@
 
 
         <StackLayout >
-            <CollectionView  IsVisible="{Binding  AvisosVisible}" ItemsSource="{Binding ListaAvisos}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout>
-                </CollectionView.ItemsLayout>
-
+            <CollectionView  IsVisible="{Binding AvisosVisible}" ItemsSource="{Binding ListaAvisos}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
-
-
                             <Label HorizontalTextAlignment="Center" TextColor="Black" FontSize="14" FontAttributes="Bold"  Text="{Binding Titulo}" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
                         </StackLayout>
                     </DataTemplate>
