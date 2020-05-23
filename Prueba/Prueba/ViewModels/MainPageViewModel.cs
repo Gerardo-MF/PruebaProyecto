@@ -12,10 +12,11 @@ namespace Prueba.ViewModels
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        Maestro m;
-        Chat viewChat;
-        AvisosGenerales generales;
+        IMessage mensaje = DependencyService.Get<IMessage>();
+        readonly Maestro m;
+        AllChats viewAllChats;
+        List<Alumno> listaAlumnos;
+        List<AvisosGenerales> listaAvisosGenerales;
         private Boolean contactos;
         private Boolean chatsContact;
         private Boolean Avisos;
@@ -25,22 +26,34 @@ namespace Prueba.ViewModels
 
         public MainPageViewModel(Maestro maestro)
         {
+            m = maestro;
+            Descargar(maestro);
             BCBtnChats = Color.FromHex("ffffff");
             BCBtnAvisos = Color.FromHex("ffffff");
             BCBtnContactos = Color.FromHex("ffffff");
             ChatContactVisible = true;
             ContactosVisible = false;
             Avisos = false;
-            Descargar(maestro);       
             VerChatCommand = new Command<Alumno>(VerChat);
             SeleccionarBoton = new Command<String>(Seleccionar);
-            ListaAlumnos = App.MainAvisos.GetGrupoAlumnos();
-            ListaAvisos = App.MainAvisos.GetAvisosGenerales();
-            
+            ListaAvisosGenerales = App.MainAvisos.GetAvisosGenerales();
+           
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Command<Alumno> VerChatCommand { get; set; }
         public Command<String> SeleccionarBoton { get; set; }
+        public List<Alumno> ListaAlumnos 
+        {
+            get { return listaAlumnos; }
+            set { listaAlumnos = value; Actualizar(); }
+        }
+        public List<AvisosGenerales> ListaAvisosGenerales 
+        {
+            get { return listaAvisosGenerales; }
+            set { listaAvisosGenerales = value; Actualizar(); }
+        }
 
         public Color BCBtnContactos
         {
@@ -77,10 +90,6 @@ namespace Prueba.ViewModels
             get { return Avisos; }
             set { Avisos = value; Actualizar(); }
         }
-
-
-        public List<Alumno> ListaAlumnos { get; set; }
-        public List<AvisosGenerales> ListaAvisos { get; set; }
        
 
         public async void Descargar(Maestro maestro)
@@ -91,50 +100,24 @@ namespace Prueba.ViewModels
             }
             else
             {
-                IMessage mensaje = DependencyService.Get<IMessage>();
                 mensaje.ShowToast("Sin conexión a internet");
             }
+            ListaAlumnos = App.MainAvisos.GetGrupoAlumnosByIdMaestro(maestro.IdMaestro);
         }
 
         private void VerChat(Alumno alumno)
         {
-            if (Connectivity.NetworkAccess==NetworkAccess.Internet)
+            if (viewAllChats==null)
             {
-                if (viewChat==null)
-                {
-                    viewChat = new Chat();
-                }
+                viewAllChats = new AllChats();
+            }
 
-                ChatViewModel chatViewModel = new ChatViewModel(alumno.Clave);
-                viewChat.BindingContext = chatViewModel;
-                App.Current.MainPage.Navigation.PushAsync(viewChat);
-            }
-            else
-            {
-                IMessage mensaje = DependencyService.Get<IMessage>();
-                mensaje.ShowToast("Sin conexión a internet");
-            }
+            ChatViewModel chatViewModel = new ChatViewModel(alumno.Clave,alumno.IdAlumno,m.IdMaestro);
+            chatViewModel.NombreAlumno = alumno.Nombre;
+            viewAllChats.BindingContext = chatViewModel;
+            App.Current.MainPage.Navigation.PushAsync(viewAllChats);
+            
         }
-
-        public async void DescargarAvisos(Escuela t)
-        {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            {
-                await App.MainAvisos.DescargarAvisosGenerales(t.NombreEscuela);
-            }
-
-            else
-            {
-                IMessage mensaje = DependencyService.Get<IMessage>();
-                mensaje.ShowToast("Sin conexión a internet");
-            }
-
-        }
-
-
-       
-
-
 
         private void Seleccionar(String tipo)
         {
@@ -161,9 +144,9 @@ namespace Prueba.ViewModels
                 BCBtnChats = Color.FromHex("ffffff");
                 BCBtnContactos = Color.FromHex("ffffff");
                 BCBtnAvisos = Color.FromHex("EF8012");
-                AvisosVisible = true;
                 ContactosVisible = false;
-                chatsContact = false;
+                ChatContactVisible = false;
+                AvisosVisible = true;
             }
            
 

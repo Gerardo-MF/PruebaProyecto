@@ -13,35 +13,7 @@
     </ContentPage.ToolbarItems>
 
         <StackLayout>
-        <!--<CollectionView>
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout VerticalItemSpacing="5" HorizontalItemSpacing="5" Orientation="Vertical" Span="3"></GridItemsLayout>
-            </CollectionView.ItemsLayout>
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>-->
-
-        <!--<Grid Padding="10" BackgroundColor="#0D66D0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" ></ColumnDefinition>
-                <ColumnDefinition Width="70" ></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-              
-                
-            </Grid.ColumnDefinitions>
-            <Frame HorizontalOptions="Start"  Padding="0" CornerRadius="30" >
-                <Image Source="user1.png" x:Name="xyz" HeightRequest="30" WidthRequest="30" ></Image>
-            </Frame>
-           
-
-            <Label Grid.Column="1"   FontFamily="Arial" FontSize="20" TextColor="White">Grupo x</Label>
-
-          
-           
-        </Grid>-->
-
-
+ 
         <Grid BackgroundColor="#0D66D0" Margin="0,-6,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -49,9 +21,9 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="chatsboton" Command="{Binding SeleccionarBoton}" CommandParameter="Chat" Text="CHATS" BackgroundColor="#0D66D0" FontFamily="Arial" FontAttributes="Bold" TextColor="{Binding BCBtnChats}"></Button>
-            <Button Text="CONTACTOS" Command="{Binding SeleccionarBoton}" CommandParameter="Contactos" Font="Arial" BackgroundColor="#0D66D0" FontAttributes="Bold" Grid.Column="1" TextColor="{Binding BCBtnContactos}"></Button>
-            <Button Text="AVISOS" Command="{Binding SeleccionarBoton}" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="{Binding BCBtnAvisos}" Grid.Column="2"></Button>
+            <Button Text="CHATS" Command="{Binding SeleccionarBoton}" CommandParameter="Chat"  BackgroundColor="#0D66D0" FontFamily="Arial" FontAttributes="Bold" TextColor="{Binding BCBtnChats}"></Button>
+            <Button Text="Contactos" Command="{Binding SeleccionarBoton}" CommandParameter="Contactos" Font="Arial" BackgroundColor="#0D66D0" FontAttributes="Bold" Grid.Column="1" TextColor="{Binding BCBtnContactos}"></Button>
+            <Button Text="AVISOS" Command="{Binding SeleccionarBoton}" CommandParameter="Avisos"  FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="{Binding BCBtnAvisos}" Grid.Column="2"></Button>
         </Grid>
                         
         <StackLayout IsVisible="{Binding ContactosVisible}">
@@ -75,8 +47,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
-
-
 
         <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="{Binding ChatContactVisible}">
             <CollectionView.ItemTemplate>
@@ -120,7 +90,7 @@
 
 
         <StackLayout >
-            <CollectionView  IsVisible="{Binding AvisosVisible}" ItemsSource="{Binding ListaAvisos}">
+            <CollectionView  IsVisible="{Binding AvisosVisible}" ItemsSource="{Binding ListaAvisosGenerales}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
@@ -130,14 +100,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
-
-
-
-
-
-
-
-
 
     </StackLayout>
  

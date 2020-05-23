@@ -13,6 +13,7 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
+        <Grid>
         <StackLayout>
             <Grid Padding="12" BackgroundColor="#0D66D0">
                 <Grid.ColumnDefinitions>
@@ -56,5 +57,13 @@
 
         </StackLayout>
         </StackLayout>
+            <ContentView BackgroundColor="#c0000000" IsVisible="{Binding CvwMensajeVisisble}" x:Name="cvwMensaje">
+                <StackLayout BackgroundColor="White" VerticalOptions="Center" Padding="0,30">
+                    <ActivityIndicator IsRunning="True" Color="#0D66D0"></ActivityIndicator>
+                    <Label TextColor="Black" Text="Descargando" x:Name="lblMensajeCVW" HorizontalTextAlignment="Center"></Label>
+                    <Button Text="Descargar Escuelas" HorizontalOptions="Center" Command="{Binding DescargarEscuelasCommand}"></Button>
+                </StackLayout>
+            </ContentView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

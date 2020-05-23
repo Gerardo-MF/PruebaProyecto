@@ -10,32 +10,35 @@ using Xamarin.Forms;
 
 namespace Prueba.ViewModels
 {
-    public class LoginViewModel:INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged
     {
-        Maestro maestro;
+        IMessage mensaje = DependencyService.Get<IMessage>();
         MainPage viewMain;
         private String clave;
         String password;
-        Escuela escuela;   
+        Escuela escuela;
         List<Escuela> escuelas;
         private String errores;
+        private Boolean cvwMensajeVisible;
 
         public LoginViewModel()
         {
-          
             Descargar();
-            maestro = new Maestro();
             InicarSesionCommand = new Command(IniciarSesion);
-
+            DescargarEscuelasCommand = new Command(Descargar);
         }
 
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //public List<Escuela> ListaEscuelas { get; set; }
         public Command InicarSesionCommand { get; set; }
+        public Command DescargarEscuelasCommand { get; set; }
 
-
+        public Boolean CvwMensajeVisisble
+        {
+            get { return cvwMensajeVisible; }
+            set { cvwMensajeVisible = value;Actualizar(); }
+        }
 
         public String Errores
         {
@@ -62,12 +65,6 @@ namespace Prueba.ViewModels
             set { escuela = value; Actualizar(); }
         }
 
-        public Maestro Maestro
-        {
-            get { return maestro; }
-            set { maestro = value; Actualizar(); }
-        }
-
         public List<Escuela> ListaEscuelas
         {
             get { return escuelas; }
@@ -76,32 +73,31 @@ namespace Prueba.ViewModels
 
        
 
-       
-
-        void Actualizar([CallerMemberName]string nombre = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
-        }
 
         private async void Descargar()
         {
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 await App.MainAvisos.DescargarEscuelas();
+                CvwMensajeVisisble = false;
+            }
+            else
+            {
+                
+                mensaje.ShowToast("Sin conexión a internet");
+                
+                CvwMensajeVisisble = true;
             }
             ListaEscuelas = App.MainAvisos.GetEscuelas();
         }
 
-
-        private async void DescargarAvisos(string escuela)
+        private async void DescargarAvisos(String nombrescuela) 
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (Connectivity.NetworkAccess==NetworkAccess.Internet)
             {
-                await App.MainAvisos.DescargarAvisosGenerales(escuela);
+                await App.MainAvisos.DescargarAvisosGenerales(nombrescuela);
             }
-           
-        }
-
+        } 
 
         private async void IniciarSesion(object obj)
         {
@@ -109,32 +105,41 @@ namespace Prueba.ViewModels
             {
                 if (Validar())
                 {
-                    var resultado = await App.MainAvisos.IniciarSesion(Clave, Password, Escuela.IdEscuela.ToString());
-                    if (resultado)
+                    try
                     {
-                        if (viewMain == null)
+                        Boolean resultado = await App.MainAvisos.IniciarSesion(Clave, Password, Escuela.IdEscuela.ToString());
+                        if (resultado)
                         {
-                            viewMain = new MainPage();
+                            if (viewMain == null)
+                            {
+                                viewMain = new MainPage();
+                            }
+                            DescargarAvisos(Escuela.NombreEscuela);
+                            Maestro maestro = App.MainAvisos.GetMaestro(Clave);
+                            MainPageViewModel mainPageViewModel = new MainPageViewModel(maestro);
+                            viewMain.BindingContext = mainPageViewModel;
+                            Application.Current.MainPage = new NavigationPage(viewMain);
                         }
-                        DescargarAvisos(escuela.NombreEscuela);
-                        maestro = App.MainAvisos.GetMaestro();
-                        MainPageViewModel mainPageViewModel = new MainPageViewModel(maestro);
-                        viewMain.BindingContext = mainPageViewModel;
-                        Application.Current.MainPage = new NavigationPage(viewMain);
+                        else
+                        {
+                            Errores += "No ha sido posible iniciar sesión";
+                        }
+                    }
+                    catch (ArgumentException ae)
+                    {
+                        Errores += ae.Message;
                     }
                 }
-               
             }
             else
             {
-                IMessage mensaje = DependencyService.Get<IMessage>();
                 mensaje.ShowToast("Sin conexión a internet");
             }
 
         }
 
 
-        Boolean Validar() 
+        Boolean Validar()
         {
             Errores = "";
             if (String.IsNullOrWhiteSpace(Clave))
@@ -145,12 +150,17 @@ namespace Prueba.ViewModels
             {
                 Errores += "El password no puede ir vacío o tener espacios en blanco\n";
             }
-            if (Escuela==null)
+            if (Escuela == null)
             {
                 Errores += "La escuela no puede estar vacía\n";
             }
 
             return Errores.Count() == 0;
+        }
+
+        void Actualizar([CallerMemberName]string nombre = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
         }
 
     }
