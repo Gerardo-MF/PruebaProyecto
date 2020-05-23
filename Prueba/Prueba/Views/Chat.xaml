@@ -12,11 +12,11 @@
         <StackLayout>
             <Grid BackgroundColor="#0D66D0" Padding="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
                     <ColumnDefinition ></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <ImageButton Source="backwhite.png" BackgroundColor="Transparent" Aspect="AspectFill" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start"></ImageButton>
+                <ImageButton Source="backwhite.png"  Aspect="AspectFill" BackgroundColor="Transparent" HeightRequest="30" WidthRequest="30" HorizontalOptions="Start"></ImageButton>
 
 
                 <Label Grid.Column="1" Text="{Binding Nombre}" FontSize="20" Padding="0" FontFamily="Arial" TextColor="White"></Label>
