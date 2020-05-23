@@ -19,19 +19,5 @@ namespace Prueba
             InitializeComponent();
  
         }
-
-        private  void chatsboton_Clicked(object sender, EventArgs e)
-        {
-            AllChats all = new AllChats();
-            Navigation.PushAsync(all);
-           
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Chat c = new  Chat();
-            Navigation.PushAsync(c);
-                  
-        }
     }
 }

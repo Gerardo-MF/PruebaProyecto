@@ -13,8 +13,8 @@ namespace Prueba.Models
         public Int32 IdEscuela { get; set; }
         public String NombreEscuela { get; set; }
         public Int32 IdGrupoMaestroAlumno { get; set; }
-
-
+        public String Password { get; set; }
+        public String Clave { get; set; }
 
     }
 }

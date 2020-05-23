@@ -34,14 +34,15 @@ namespace Prueba.Models
             return new List<AvisosGenerales>(sQLiteConnection.Table<AvisosGenerales>());
         }
 
-        public Maestro GetMaestro()
+
+        public Maestro GetMaestro(String Clave)
         {
-            return sQLiteConnection.Table<Maestro>().FirstOrDefault();
+            return sQLiteConnection.Table<Maestro>().FirstOrDefault(x => x.Clave == Clave);
         }
 
-        public List<Alumno> GetGrupoAlumnos()
+        public List<Alumno> GetGrupoAlumnosByIdMaestro(Int32 idmaestro)
         {
-            return new List<Alumno>(sQLiteConnection.Table<Alumno>());
+            return new List<Alumno>(sQLiteConnection.Table<Alumno>().Where(x => x.IdMaestro == idmaestro));
         }
 
         public List<Escuela> GetEscuelas()
@@ -55,7 +56,7 @@ namespace Prueba.Models
 
         public async Task<Boolean> IniciarSesion(String clave, String password, String idEscuela)
         {
-            if (sQLiteConnection.Table<Maestro>().Count() == 0)
+            if (sQLiteConnection.Table<Maestro>().Count(x => x.Clave == clave) == 0)
             {
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
@@ -73,12 +74,14 @@ namespace Prueba.Models
                     {
                         String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
                         Maestro m = JsonConvert.DeserializeObject<Maestro>(datosRespuesta);
+                        m.Clave = clave;
+                        m.Password = password;
                         sQLiteConnection.Insert(m);
                         return true;
                     }
                     else
                     {
-                        throw new Exception();
+                        return false;
                     }
 
                 }
@@ -89,64 +92,39 @@ namespace Prueba.Models
             }
             else
             {
-                return true;
+                var maestro = sQLiteConnection.Table<Maestro>().FirstOrDefault(x => x.Clave == clave);
+                if (maestro != null)
+                {
+                    if (maestro.Password != password)
+                    {
+                        throw new ArgumentException("El password es incorrecto");
+                    }
+                    return true;
+                }
+                else
+                {
+                    throw new ArgumentException("El usuario no existe");
+                }
             }
-
         }
 
         public async Task DescargarEscuelas()
         {
             if (sQLiteConnection.Table<Escuela>().Count() == 0)
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-                {
                     httpClient = new HttpClient();
                     HttpResponseMessage respuesta = await httpClient.GetAsync("https://avisosprimaria.itesrc.net/api/AdminApp/GetEscuelas");
                     if (respuesta.IsSuccessStatusCode)
                     {
-                        String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
-                        List<Escuela> escuelas = JsonConvert.DeserializeObject<List<Escuela>>(datosRespuesta);
-                        sQLiteConnection.InsertAll(escuelas);
+                       String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+                       List<Escuela> escuelas = JsonConvert.DeserializeObject<List<Escuela>>(datosRespuesta);
+                       foreach (Escuela escuela in escuelas)
+                       {
+                        sQLiteConnection.InsertOrReplace(escuela);
+                       }
                     }
-                }
             }
         }
-
-        public async Task DescargarGrupo(Int32 idMaestro, Int32 idEscuela)
-        {
-            if (sQLiteConnection.Table<Alumno>().Count() == 0)
-            {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-                {
-                    httpClient = new HttpClient();
-                    Dictionary<String, String> datos = new Dictionary<String, String>()
-                {
-                    {"idMaestro",idMaestro.ToString()},
-                    {"idEscuela",idEscuela.ToString() }
-                };
-
-                    HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/MaestrosApp/GetGrupo", new FormUrlEncodedContent(datos));
-                    if (respuesta.IsSuccessStatusCode)
-                    {
-                        String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
-                        Grupo g = JsonConvert.DeserializeObject<Grupo>(datosRespuesta);
-                        sQLiteConnection.InsertAll(g.Alumnos);
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
-
-                }
-                else
-                {
-                    throw new ArgumentException("Sin conexión a Internet");
-                }
-            }
-
-        }
-
-
 
         public async Task DescargarAvisosGenerales(string NombreEscuela)
         {
@@ -168,40 +146,86 @@ namespace Prueba.Models
 
 
 
-        public async Task DescargarAvisos(String Clave)
+        public async Task EnviarAvisos(Int32 idmaestro, Int32 idalumno, String contenido, DateTime fechaEnviar, DateTime fechaCaducidad, String clavealumno)
         {
-            if (sQLiteConnection.Table<Avisos>().Count(x=>x.ClaveAlumno==Clave) == 0)
+            HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromSeconds(50);
+            Dictionary<String, String> datos = new Dictionary<String, String>()
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {"idMaestro",idmaestro.ToString() },
+                {"idAlumno",idalumno.ToString() },
+                {"contenido",contenido},
+                {"FechaEnviar", fechaEnviar.ToString()},
+                {"FechaCaducidad",fechaCaducidad.ToString() }
+            };
+            var respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/MaestrosApp/EnviarAviso", new FormUrlEncodedContent(datos));
+            if (respuesta.IsSuccessStatusCode)
+            {
+                String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                throw new ArgumentException("No se ha podido enviar el aviso");
+            }
+
+        }
+
+        public async Task DescargarGrupo(Int32 idMaestro, Int32 idEscuela)
+        {
+
+                httpClient = new HttpClient();
+                Dictionary<String, String> datos = new Dictionary<String, String>()
                 {
-                    httpClient = new HttpClient();
-                    Dictionary<String, String> datos = new Dictionary<String, String>()
-                {
-                    {"clave",Clave}
+                    {"idMaestro",idMaestro.ToString()},
+                    {"idEscuela",idEscuela.ToString() }
                 };
 
-                    HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/AlumnosApp/AvisosByClaveAlumno", new FormUrlEncodedContent(datos));
-                    if (respuesta.IsSuccessStatusCode)
-                    {
-                        String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
-                        List<Avisos> lista = JsonConvert.DeserializeObject<List<Avisos>>(datosRespuesta);
-                        lista.ForEach(x => { x.ClaveAlumno = Clave; });
-                        sQLiteConnection.InsertAll(lista);
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
+                HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/MaestrosApp/GetGrupo", new FormUrlEncodedContent(datos));
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+                    Grupo g = JsonConvert.DeserializeObject<Grupo>(datosRespuesta);
+                foreach (Alumno alumno in g.Alumnos)
+                {
+                    alumno.IdMaestro = idMaestro;
+                    sQLiteConnection.InsertOrReplace(alumno);
+                }
 
                 }
                 else
                 {
-                    throw new ArgumentException("Sin conexión a Internet");
+                    throw new ArgumentException("Ha ocurrido un error al enviar la solicitud");
                 }
-            }
+
         }
 
+        public async Task DescargarAvisos(String Clave)
+        {
 
+            httpClient = new HttpClient();
+            Dictionary<String, String> datos = new Dictionary<String, String>()
+            {
+               {"clave",Clave}
+            };
+
+            HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/AlumnosApp/AvisosByClaveAlumno", new FormUrlEncodedContent(datos));
+
+            if (respuesta.IsSuccessStatusCode) 
+            {
+               String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+               List<Avisos> lista = JsonConvert.DeserializeObject<List<Avisos>>(datosRespuesta);
+               foreach (var avisos in lista)
+               {
+                 avisos.ClaveAlumno = Clave;
+                 sQLiteConnection.InsertOrReplace(avisos);
+               }
+            }
+            else
+            {
+                throw new Exception();
+            }
+            
+        }
 
 
     }

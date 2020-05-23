@@ -16,5 +16,10 @@ namespace Prueba.Views
         {
             InitializeComponent();
         }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage.Navigation.PopAsync();
+        }
     }
 }
