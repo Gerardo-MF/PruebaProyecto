@@ -16,16 +16,14 @@ namespace Prueba.ViewModels
         MainPage viewMain;
         private String clave;
         String password;
-        Escuela escuela;
-        List<AvisosGenerales> Avisos;
+        Escuela escuela;   
         List<Escuela> escuelas;
         private String errores;
 
-        public LoginViewModel(Escuela l)
+        public LoginViewModel()
         {
           
             Descargar();
-            DescargarAvisos(l);
             maestro = new Maestro();
             InicarSesionCommand = new Command(IniciarSesion);
 
@@ -76,17 +74,9 @@ namespace Prueba.ViewModels
             set { escuelas = value; Actualizar(); }
         }
 
-        public AvisosGenerales Aviso
-        {
-            get { return aviso; }
-            set { aviso = value; Actualizar(); }
-        }
+       
 
-        public List<AvisosGenerales> ListaAvisos
-        {
-            get { return Avisos; }
-            set { Avisos = value; Actualizar(); }
-        }
+       
 
         void Actualizar([CallerMemberName]string nombre = "")
         {
@@ -102,15 +92,7 @@ namespace Prueba.ViewModels
             ListaEscuelas = App.MainAvisos.GetEscuelas();
         }
 
-        public async void DescargarAvisos(Escuela NombreEscuela)
-        {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            {
-                await App.MainAvisos.DescargarAvisosGenerales(NombreEscuela.NombreEscuela);
-            }
-            ListaAvisos = App.MainAvisos.GetAvisosGenerales();
-        }
-
+       
 
         private async void IniciarSesion(object obj)
         {

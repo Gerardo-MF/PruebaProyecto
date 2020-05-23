@@ -15,6 +15,7 @@ namespace Prueba.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         Maestro m;
         Chat viewChat;
+        AvisosGenerales generales;
         private Boolean contactos;
         private Boolean chatsContact;
         private Boolean Avisos;
@@ -30,10 +31,11 @@ namespace Prueba.ViewModels
             ChatContactVisible = true;
             ContactosVisible = false;
             Avisos = false;
-            Descargar(maestro);
+            Descargar(maestro);       
             VerChatCommand = new Command<Alumno>(VerChat);
             SeleccionarBoton = new Command<String>(Seleccionar);
             ListaAlumnos = App.MainAvisos.GetGrupoAlumnos();
+            ListaAvisos = App.MainAvisos.GetAvisosGenerales();
             
         }
 
@@ -78,6 +80,7 @@ namespace Prueba.ViewModels
 
 
         public List<Alumno> ListaAlumnos { get; set; }
+        public List<AvisosGenerales> ListaAvisos { get; set; }
 
         public async void Descargar(Maestro maestro)
         {
@@ -112,19 +115,25 @@ namespace Prueba.ViewModels
             }
         }
 
-        public async void VerAvisos(string escuela)
+        public async void DescargarAvisos(Escuela t)
         {
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                await App.MainAvisos.DescargarAvisosGenerales(escuela);
-
+                await App.MainAvisos.DescargarAvisosGenerales(t.NombreEscuela);
             }
+
             else
             {
                 IMessage mensaje = DependencyService.Get<IMessage>();
                 mensaje.ShowToast("Sin conexión a internet");
             }
+
         }
+
+
+       
+
+
 
         private void Seleccionar(String tipo)
         {
