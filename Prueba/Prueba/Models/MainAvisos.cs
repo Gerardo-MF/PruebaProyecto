@@ -25,7 +25,13 @@ namespace Prueba.Models
             //sQLiteConnection.CreateTable<Grupo>();
             sQLiteConnection.CreateTable<Alumno>();
             sQLiteConnection.CreateTable<Escuela>();
+            sQLiteConnection.CreateTable<AvisosGenerales>();
             sQLiteConnection.CreateTable<Avisos>();
+        }
+
+        public List<AvisosGenerales> GetAvisosGenerales()
+        {
+            return new List<AvisosGenerales>(sQLiteConnection.Table<AvisosGenerales>());
         }
 
         public Maestro GetMaestro()
@@ -139,6 +145,28 @@ namespace Prueba.Models
             }
 
         }
+
+
+
+        public async Task DescargarAvisosGenerales(string NombreEscuela)
+        {
+            if (sQLiteConnection.Table<AvisosGenerales>().Count() == 0)
+            {
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    HttpClient client = new HttpClient();
+                    HttpResponseMessage datos = await client.GetAsync($"https://avisosPrimaria.itersc.net/api/AvisosGenerales/NombreEscuela/{NombreEscuela}");
+                    if (datos.IsSuccessStatusCode)
+                    {
+                        string datosRespuesta = await datos.Content.ReadAsStringAsync();
+                        List<AvisosGenerales> avisos = JsonConvert.DeserializeObject<List<AvisosGenerales>>(datosRespuesta);
+                        sQLiteConnection.InsertAll(avisos);
+                    }
+                }
+            }
+        }
+
+
 
         public async Task DescargarAvisos(String Clave)
         {

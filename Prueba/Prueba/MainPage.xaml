@@ -51,7 +51,7 @@
 
             <Button x:Name="chatsboton" Command="{Binding SeleccionarBoton}" CommandParameter="Chat" Text="CHATS" BackgroundColor="#0D66D0" FontFamily="Arial" FontAttributes="Bold" TextColor="{Binding BCBtnChats}"></Button>
             <Button Text="CONTACTOS" Command="{Binding SeleccionarBoton}" CommandParameter="Contactos" Font="Arial" BackgroundColor="#0D66D0" FontAttributes="Bold" Grid.Column="1" TextColor="{Binding BCBtnContactos}"></Button>
-            <Button Text="AVISOS" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="White" Grid.Column="2"></Button>
+            <Button Text="AVISOS" Command="{Binding SeleccionarBoton}" FontAttributes="Bold" FontFamily="Arial" BackgroundColor="#0D66D0" TextColor="{Binding BCBtnAvisos}" Grid.Column="2"></Button>
         </Grid>
                         
         <StackLayout IsVisible="{Binding ContactosVisible}">
@@ -115,19 +115,36 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 
-                  
+
+
+
+        <StackLayout >
+            <CollectionView  IsVisible="{Binding  AvisosVisible}" ItemsSource="{Binding ListaAvisos}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout VerticalItemSpacing="3" Orientation="Vertical" Span="3" HorizontalItemSpacing="3"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+
+
+                            <Label HorizontalTextAlignment="Center" TextColor="Black" FontSize="14" FontAttributes="Bold"  Text="{Binding Titulo}" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+
+
+
+
+
+
+
+
+
     </StackLayout>
  
  </ContentPage>

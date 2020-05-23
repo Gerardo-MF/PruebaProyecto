@@ -17,12 +17,15 @@ namespace Prueba.ViewModels
         private String clave;
         String password;
         Escuela escuela;
+        List<AvisosGenerales> Avisos;
         List<Escuela> escuelas;
         private String errores;
 
-        public LoginViewModel()
+        public LoginViewModel(Escuela l)
         {
+          
             Descargar();
+            DescargarAvisos(l);
             maestro = new Maestro();
             InicarSesionCommand = new Command(IniciarSesion);
 
@@ -73,6 +76,18 @@ namespace Prueba.ViewModels
             set { escuelas = value; Actualizar(); }
         }
 
+        public AvisosGenerales Aviso
+        {
+            get { return aviso; }
+            set { aviso = value; Actualizar(); }
+        }
+
+        public List<AvisosGenerales> ListaAvisos
+        {
+            get { return Avisos; }
+            set { Avisos = value; Actualizar(); }
+        }
+
         void Actualizar([CallerMemberName]string nombre = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
@@ -85,6 +100,15 @@ namespace Prueba.ViewModels
                 await App.MainAvisos.DescargarEscuelas();
             }
             ListaEscuelas = App.MainAvisos.GetEscuelas();
+        }
+
+        public async void DescargarAvisos(Escuela NombreEscuela)
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                await App.MainAvisos.DescargarAvisosGenerales(NombreEscuela.NombreEscuela);
+            }
+            ListaAvisos = App.MainAvisos.GetAvisosGenerales();
         }
 
 

@@ -3,6 +3,7 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Prueba.Models;
+using Prueba.ViewModels;
 
 namespace Prueba
 {

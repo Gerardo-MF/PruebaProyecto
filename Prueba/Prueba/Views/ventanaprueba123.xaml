@@ -11,6 +11,7 @@
     <ContentPage.BindingContext>
         <my:LoginViewModel></my:LoginViewModel>
     </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout>
             <Grid Padding="12" BackgroundColor="#0D66D0">
