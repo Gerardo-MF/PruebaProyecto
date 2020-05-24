@@ -19,5 +19,10 @@ namespace Prueba
             InitializeComponent();
  
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage=new ventanaprueba123();
+        }
     }
 }
