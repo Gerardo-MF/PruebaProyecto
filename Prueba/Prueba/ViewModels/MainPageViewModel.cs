@@ -149,7 +149,7 @@ namespace Prueba.ViewModels
                 ContactosVisible = true;
                 ChatContactVisible = false;
             }
-            else 
+            else
             {
                 BCBtnChats = Color.FromHex("ffffff");
                 BCBtnContactos = Color.FromHex("ffffff");
