@@ -20,6 +20,8 @@ namespace Prueba.ViewModels
         List<Escuela> escuelas;
         private String errores;
         private Boolean cvwMensajeVisible;
+        Boolean cvwStackVisible,btnVolverDescargarVisible;
+        
 
         public LoginViewModel()
         {
@@ -33,6 +35,17 @@ namespace Prueba.ViewModels
 
         public Command InicarSesionCommand { get; set; }
         public Command DescargarEscuelasCommand { get; set; }
+        public Boolean BtnVolerDescargarVisible
+        {
+            get { return btnVolverDescargarVisible; }
+            set { btnVolverDescargarVisible = value; Actualizar(); }
+        }
+
+        public Boolean CvwStackVisible
+        {
+            get { return cvwStackVisible; }
+            set { cvwStackVisible = value; Actualizar(); }
+        }
 
         public Boolean CvwMensajeVisisble
         {
@@ -78,6 +91,8 @@ namespace Prueba.ViewModels
         {
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
+                BtnVolerDescargarVisible = false;
+                CvwStackVisible = true;
                 await App.MainAvisos.DescargarEscuelas();
                 CvwMensajeVisisble = false;
             }
@@ -85,7 +100,8 @@ namespace Prueba.ViewModels
             {
                 
                 mensaje.ShowToast("Sin conexión a internet");
-             
+                CvwStackVisible = false;
+                BtnVolerDescargarVisible = true;
                 CvwMensajeVisisble = true;
             }
             ListaEscuelas = App.MainAvisos.GetEscuelas();
