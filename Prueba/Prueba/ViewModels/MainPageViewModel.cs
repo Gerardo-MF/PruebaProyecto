@@ -19,6 +19,7 @@ namespace Prueba.ViewModels
         List<Alumno> listaAlumnos;
         List<AvisosGenerales> listaAvisosGenerales;
         private String nombreEscuela;
+        
         private Boolean contactos;
         private Boolean chatsContact;
         private Boolean Avisos;
