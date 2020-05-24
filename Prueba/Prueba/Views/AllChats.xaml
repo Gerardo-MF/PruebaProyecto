@@ -45,8 +45,8 @@
                                     </Grid.RowDefinitions>
                                 </Grid>
 
-                                <Label   FontSize="15" FontFamily="Calibri" TextColor="Black" Text="{Binding Contenido}" ></Label>
-                                <Label   Grid.Column="1" Grid.Row="1" HorizontalOptions="End" FontSize="8" FontFamily="Calibri" TextColor="Black" Text="{Binding fechaEnviado, StringFormat='{0:d}'}" ></Label>
+                                <Label FontSize="15" FontFamily="Calibri" TextColor="Black" Text="{Binding Contenido}" ></Label>
+                                <Label Grid.Column="1" Grid.Row="1" HorizontalOptions="End" FontSize="10" FontFamily="Calibri" TextColor="Black" Text="{Binding fechaEnviado, StringFormat='{0:d}'}" ></Label>
 
                             </StackLayout>
                         </Frame>

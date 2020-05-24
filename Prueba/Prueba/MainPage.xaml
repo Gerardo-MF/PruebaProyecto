@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              xmlns:local="clr-namespace:Prueba"
              x:Name="viewMain"
-             x:Class="Prueba.MainPage" Title="Grupo X" >
+             x:Class="Prueba.MainPage"  >
 
     <ContentPage.ToolbarItems >
         <ToolbarItem Text="Cerrar Sesion" Order="Secondary"></ToolbarItem>
@@ -80,10 +80,7 @@
 
                         </StackLayout>
 
-                        <StackLayout Margin="0,7,0,0" Grid.Column="2" HorizontalOptions="End">
-                            <Label FontSize="13"  FontFamily="Arial">20:30</Label>
-                        </StackLayout>
-
+                       
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
