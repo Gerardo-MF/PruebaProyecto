@@ -85,17 +85,17 @@ namespace Prueba.ViewModels
             {
                 
                 mensaje.ShowToast("Sin conexión a internet");
-                
+             
                 CvwMensajeVisisble = true;
             }
             ListaEscuelas = App.MainAvisos.GetEscuelas();
         }
 
-        private async void DescargarAvisos(String nombrescuela) 
+        private async void DescargarAvisos(String nombrescuela,Int32 idEscuela) 
         {
             if (Connectivity.NetworkAccess==NetworkAccess.Internet)
             {
-                await App.MainAvisos.DescargarAvisosGenerales(nombrescuela);
+                await App.MainAvisos.DescargarAvisosGenerales(nombrescuela,idEscuela);
             }
         } 
 
@@ -107,22 +107,22 @@ namespace Prueba.ViewModels
                 {
                     try
                     {
-                        Boolean resultado = await App.MainAvisos.IniciarSesion(Clave, Password, Escuela.IdEscuela.ToString());
+                        Boolean resultado = await App.MainAvisos.IniciarSesion(Clave, Password, Escuela.IdEscuela);
                         if (resultado)
                         {
                             if (viewMain == null)
                             {
                                 viewMain = new MainPage();
                             }
-                            DescargarAvisos(Escuela.NombreEscuela);
+                            DescargarAvisos(Escuela.NombreEscuela,escuela.IdEscuela);
                             Maestro maestro = App.MainAvisos.GetMaestro(Clave);
-                            MainPageViewModel mainPageViewModel = new MainPageViewModel(maestro);
+                            MainPageViewModel mainPageViewModel = new MainPageViewModel(maestro,Escuela);
                             viewMain.BindingContext = mainPageViewModel;
                             Application.Current.MainPage = new NavigationPage(viewMain);
                         }
                         else
                         {
-                            Errores += "No ha sido posible iniciar sesión";
+                            Errores += "No ha sido posible iniciar sesión.\nVerifique sus datos";
                         }
                     }
                     catch (ArgumentException ae)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +30,9 @@ namespace Prueba.Models
             sQLiteConnection.CreateTable<Avisos>();
         }
 
-        public List<AvisosGenerales> GetAvisosGenerales()
+        public List<AvisosGenerales> GetAvisosGenerales(Int32 idEscuela)
         {
-            return new List<AvisosGenerales>(sQLiteConnection.Table<AvisosGenerales>());
+            return new List<AvisosGenerales>(sQLiteConnection.Table<AvisosGenerales>().Where(x => x.IdEscuela == idEscuela));
         }
 
 
@@ -54,9 +55,9 @@ namespace Prueba.Models
             return new List<Avisos>(sQLiteConnection.Table<Avisos>().Where(x => x.ClaveAlumno == Clave));
         }
 
-        public async Task<Boolean> IniciarSesion(String clave, String password, String idEscuela)
+        public async Task<Boolean> IniciarSesion(String clave, String password, Int32 idEscuela)
         {
-            if (sQLiteConnection.Table<Maestro>().Count(x => x.Clave == clave) == 0)
+            if (sQLiteConnection.Table<Maestro>().Count(x => x.Clave == clave&&x.IdEscuela==idEscuela) == 0)
             {
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
@@ -65,7 +66,7 @@ namespace Prueba.Models
                 {
                     {"clave",clave},
                     {"password",password},
-                    {"idEscuela",idEscuela}
+                    {"idEscuela",idEscuela.ToString()}
                 };
 
                     HttpResponseMessage respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/MaestrosApp/login", new FormUrlEncodedContent(datos));
@@ -92,7 +93,7 @@ namespace Prueba.Models
             }
             else
             {
-                var maestro = sQLiteConnection.Table<Maestro>().FirstOrDefault(x => x.Clave == clave);
+                var maestro = sQLiteConnection.Table<Maestro>().FirstOrDefault(x => x.Clave == clave&&x.IdEscuela==idEscuela);
                 if (maestro != null)
                 {
                     if (maestro.Password != password)
@@ -126,7 +127,7 @@ namespace Prueba.Models
             }
         }
 
-        public async Task DescargarAvisosGenerales(string NombreEscuela)
+        public async Task DescargarAvisosGenerales(string NombreEscuela,Int32 idEscuela)
         {
             if (sQLiteConnection.Table<AvisosGenerales>().Count() == 0)
             {
@@ -138,7 +139,11 @@ namespace Prueba.Models
                     {
                         string datosRespuesta = await datos.Content.ReadAsStringAsync();
                         List<AvisosGenerales> avisos = JsonConvert.DeserializeObject<List<AvisosGenerales>>(datosRespuesta);
-                        sQLiteConnection.InsertAll(avisos);
+                        foreach (AvisosGenerales item in avisos)
+                        {
+                            item.IdEscuela = idEscuela;
+                            sQLiteConnection.InsertOrReplace(item);
+                        }
                     }
                 }
             }
@@ -149,19 +154,29 @@ namespace Prueba.Models
         public async Task EnviarAvisos(Int32 idmaestro, Int32 idalumno, String contenido, DateTime fechaEnviar, DateTime fechaCaducidad, String clavealumno)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(50);
             Dictionary<String, String> datos = new Dictionary<String, String>()
             {
                 {"idMaestro",idmaestro.ToString() },
                 {"idAlumno",idalumno.ToString() },
                 {"contenido",contenido},
-                {"FechaEnviar", fechaEnviar.ToString()},
-                {"FechaCaducidad",fechaCaducidad.ToString() }
+                {"FechaEnviar", $"{fechaEnviar.Year}-{fechaEnviar.Month}-{fechaEnviar.Day}"},
+                {"FechaCaducidad",$"{fechaCaducidad.Year}-{fechaCaducidad.Month}-{fechaCaducidad.Day}" }
             };
             var respuesta = await httpClient.PostAsync("https://avisosprimaria.itesrc.net/api/MaestrosApp/EnviarAviso", new FormUrlEncodedContent(datos));
             if (respuesta.IsSuccessStatusCode)
             {
                 String datosRespuesta = await respuesta.Content.ReadAsStringAsync();
+                var dat = JsonConvert.DeserializeObject<Int32>(datosRespuesta);
+                Avisos a = new Avisos()
+                {
+                    IdAvisosEnviados = dat,
+                    Contenido = contenido,
+                    IdMaestro = idmaestro,
+                    IdAlumno = idalumno,
+                    fechaEnviado = fechaEnviar,
+                    ClaveAlumno = clavealumno
+                };
+                sQLiteConnection.Insert(a);
             }
             else
             {
@@ -218,6 +233,7 @@ namespace Prueba.Models
                {
                  avisos.ClaveAlumno = Clave;
                  sQLiteConnection.InsertOrReplace(avisos);
+                  
                }
             }
             else
