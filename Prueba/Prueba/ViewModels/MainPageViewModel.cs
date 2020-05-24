@@ -15,6 +15,7 @@ namespace Prueba.ViewModels
         IMessage mensaje = DependencyService.Get<IMessage>();
         readonly Maestro m;
         readonly Escuela e;
+       
         AllChats viewAllChats;
         List<Alumno> listaAlumnos;
         List<AvisosGenerales> listaAvisosGenerales;
@@ -100,6 +101,8 @@ namespace Prueba.ViewModels
             get { return Avisos; }
             set { Avisos = value; Actualizar(); }
         }
+
+        
        
 
         public async void Descargar(Maestro maestro)

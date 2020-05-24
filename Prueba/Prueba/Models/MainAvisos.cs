@@ -15,7 +15,7 @@ namespace Prueba.Models
          */
     public class MainAvisos
     {
-
+    
         SQLiteConnection sQLiteConnection;
         HttpClient httpClient;
 
