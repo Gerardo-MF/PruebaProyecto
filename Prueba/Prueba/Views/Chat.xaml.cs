@@ -17,5 +17,11 @@ namespace Prueba.Views
             InitializeComponent();
          
         }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            txtMensaje.Text = "";
+            txtMensaje.Unfocus();
+        }
     }
 }

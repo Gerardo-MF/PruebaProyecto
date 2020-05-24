@@ -21,5 +21,10 @@ namespace Prueba.Views
         {
             App.Current.MainPage.Navigation.PopAsync();
         }
+
+        private void ImageButton_Clicked_1(object sender, EventArgs e)
+        {
+            txtMensaje.Text = "";
+        }
     }
 }

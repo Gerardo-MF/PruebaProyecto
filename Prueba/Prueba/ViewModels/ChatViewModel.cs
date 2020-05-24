@@ -78,8 +78,8 @@ namespace Prueba.ViewModels
             {
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-                    await App.MainAvisos.EnviarAvisos(1, 1, "prueba", DateTime.Today, DateTime.Today.AddMonths(6), "0001");
-                    await DescargarAvisos(clavealumno);
+                    await App.MainAvisos.EnviarAvisos(idMaestro, idAlumno,Mensaje, DateTime.Today, DateTime.Today.AddMonths(6),clavealumno);
+                    ListaAvisos = App.MainAvisos.GetBAvisosByAlumno(clavealumno);
                 }
                 else
                 {
