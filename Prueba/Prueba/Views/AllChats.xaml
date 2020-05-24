@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:Prueba;assembly=Prueba"
-             x:Class="Prueba.Views.AllChats" NavigationPage.HasNavigationBar="False">
+             x:Class="Prueba.Views.AllChats" NavigationPage.HasNavigationBar="False" BackgroundColor="#E5DDD5">
 
     <StackLayout>
         <Grid BackgroundColor="#0D66D0" Padding="10">
@@ -19,26 +19,43 @@
             
         </Grid>
 
-        <CollectionView ItemsSource="{Binding ListaAvisos}" ItemsUpdatingScrollMode="KeepLastItemInView" HorizontalOptions="Start">
+        <CollectionView ItemsSource="{Binding ListaAvisos}" BackgroundColor="#E5DDD5" Margin="8" >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout VerticalItemSpacing="3"  Orientation="Vertical"></GridItemsLayout>
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Frame Padding="5" Margin="5,0,3,5" Grid.ColumnSpan="2">
+                    
+                        <Frame Padding="5">
                             <StackLayout>
-                                <Label FontSize="20" FontFamily="Calibri" TextColor="Black" Text="{Binding Contenido}" ></Label>
+                                <Grid>
+
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                      
+                                     
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                      
+                                       
+                                    </Grid.RowDefinitions>
+                                </Grid>
+
+                                <Label   FontSize="15" FontFamily="Calibri" TextColor="Black" Text="{Binding Contenido}" ></Label>
+                                <Label   Grid.Column="1" Grid.Row="1" HorizontalOptions="End" FontSize="8" FontFamily="Calibri" TextColor="Black" Text="{Binding fechaEnviado, StringFormat='{0:d}'}" ></Label>
+
                             </StackLayout>
                         </Frame>
-                    </Grid>
+                   
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Grid>
+        <Grid BackgroundColor="#F0F0F0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="45"></ColumnDefinition>

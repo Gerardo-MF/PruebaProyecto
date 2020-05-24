@@ -52,7 +52,7 @@ namespace Prueba.Models
         }
         public List<Avisos> GetBAvisosByAlumno(String Clave)
         {
-            return new List<Avisos>(sQLiteConnection.Table<Avisos>().Where(x => x.ClaveAlumno == Clave));
+            return new List<Avisos>(sQLiteConnection.Table<Avisos>().Where(x => x.ClaveAlumno == Clave).OrderBy(x=>x.fechaEnviado));
         }
 
         public async Task<Boolean> IniciarSesion(String clave, String password, Int32 idEscuela)
