@@ -91,11 +91,11 @@ namespace Prueba.ViewModels
             ListaEscuelas = App.MainAvisos.GetEscuelas();
         }
 
-        private async void DescargarAvisos(String nombrescuela) 
+        private async void DescargarAvisos(string nombreescuela) 
         {
             if (Connectivity.NetworkAccess==NetworkAccess.Internet)
             {
-                await App.MainAvisos.DescargarAvisosGenerales(nombrescuela);
+                await App.MainAvisos.DescargarAvisosGenerales(nombreescuela);
             }
         } 
 

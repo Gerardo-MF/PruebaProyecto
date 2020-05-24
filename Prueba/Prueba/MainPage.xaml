@@ -48,10 +48,13 @@
             </CollectionView>
         </StackLayout>
 
-        <CollectionView ItemsSource="{Binding ListaAlumnos}" IsVisible="{Binding ChatContactVisible}">
+        <CollectionView ItemsSource="{Binding ListaAlumnos}"  IsVisible="{Binding ChatContactVisible}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="5" Margin="5">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={Reference viewMain},Path=BindingContext.VerChatCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        </Grid.GestureRecognizers>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60" ></ColumnDefinition>
                             <ColumnDefinition ></ColumnDefinition>
@@ -60,12 +63,12 @@
                         </Grid.ColumnDefinitions>
 
                         <Frame CornerRadius="50" 
-           HeightRequest="50"
-           WidthRequest="50"
-           HorizontalOptions="StartAndExpand"
-          VerticalOptions="StartAndExpand"
-           Padding="0"
-           IsClippedToBounds="False">
+                 HeightRequest="50"
+               WidthRequest="50"
+              HorizontalOptions="StartAndExpand"
+                VerticalOptions="StartAndExpand"
+               Padding="0"
+              IsClippedToBounds="False">
                             <Image Source="user1.png" 
            HorizontalOptions="Start"
            VerticalOptions="Start" />
@@ -90,12 +93,32 @@
 
 
         <StackLayout >
-            <CollectionView  IsVisible="{Binding AvisosVisible}" ItemsSource="{Binding ListaAvisosGenerales}">
-                <CollectionView.ItemTemplate>
+            <CollectionView  IsVisible="{Binding AvisosVisible}" ItemsSource="{Binding ListaAvisosGenerales}" >
+                <CollectionView.ItemTemplate >
                     <DataTemplate>
-                        <StackLayout>
-                            <Label HorizontalTextAlignment="Center" TextColor="Black" FontSize="14" FontAttributes="Bold"  Text="{Binding Titulo}" x:Name="Nombre Alumnos" VerticalTextAlignment="Center"></Label>
+                       
+                        <StackLayout >
+
+                            <Frame>
+
+                                <StackLayout >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label FontFamily="Arial" HorizontalOptions="Start" FontAttributes="Bold" TextColor="Black" FontSize="22">Aviso</Label>
+                                        <Label HorizontalOptions="End" Grid.Column="1" TextColor="Black" Text="{Binding FechaEnviado,StringFormat='{0:d}'}"  FontFamily="Arial" FontAttributes="Bold" FontSize="17"></Label>
+                                    </Grid>
+                                    
+                                    <Label FontSize="16" TextColor="Black"  Text="{Binding Titulo}" ></Label>
+                                    <Label Grid.Row="1"  FontSize="16" TextColor="Black" Text="{Binding Contenido}" ></Label>
+                                </StackLayout>
+
+                            </Frame>
+                            
                         </StackLayout>
+                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

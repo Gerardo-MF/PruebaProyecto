@@ -15,6 +15,7 @@ namespace Prueba.Views
         public Chat()
         {
             InitializeComponent();
+         
         }
     }
 }

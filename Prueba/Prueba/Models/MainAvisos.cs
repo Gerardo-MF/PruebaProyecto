@@ -31,7 +31,7 @@ namespace Prueba.Models
 
         public List<AvisosGenerales> GetAvisosGenerales()
         {
-            return new List<AvisosGenerales>(sQLiteConnection.Table<AvisosGenerales>());
+            return new List<AvisosGenerales>(sQLiteConnection.Table<AvisosGenerales>().OrderBy(x=>x.FechaEnviado));
         }
 
 

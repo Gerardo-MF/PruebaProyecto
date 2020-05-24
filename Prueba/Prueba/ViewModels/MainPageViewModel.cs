@@ -37,19 +37,19 @@ namespace Prueba.ViewModels
             VerChatCommand = new Command<Alumno>(VerChat);
             SeleccionarBoton = new Command<String>(Seleccionar);
             ListaAvisosGenerales = App.MainAvisos.GetAvisosGenerales();
-           
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Command<Alumno> VerChatCommand { get; set; }
         public Command<String> SeleccionarBoton { get; set; }
-        public List<Alumno> ListaAlumnos 
+        public List<Alumno> ListaAlumnos
         {
             get { return listaAlumnos; }
             set { listaAlumnos = value; Actualizar(); }
         }
-        public List<AvisosGenerales> ListaAvisosGenerales 
+        public List<AvisosGenerales> ListaAvisosGenerales
         {
             get { return listaAvisosGenerales; }
             set { listaAvisosGenerales = value; Actualizar(); }
@@ -90,7 +90,7 @@ namespace Prueba.ViewModels
             get { return Avisos; }
             set { Avisos = value; Actualizar(); }
         }
-       
+
 
         public async void Descargar(Maestro maestro)
         {
@@ -103,21 +103,25 @@ namespace Prueba.ViewModels
                 mensaje.ShowToast("Sin conexión a internet");
             }
             ListaAlumnos = App.MainAvisos.GetGrupoAlumnosByIdMaestro(maestro.IdMaestro);
+            
         }
 
         private void VerChat(Alumno alumno)
         {
-            if (viewAllChats==null)
+            if (viewAllChats == null)
             {
                 viewAllChats = new AllChats();
             }
 
-            ChatViewModel chatViewModel = new ChatViewModel(alumno.Clave,alumno.IdAlumno,m.IdMaestro);
+            ChatViewModel chatViewModel = new ChatViewModel(alumno.Clave, alumno.IdAlumno, m.IdMaestro);
             chatViewModel.NombreAlumno = alumno.Nombre;
+
             viewAllChats.BindingContext = chatViewModel;
-            App.Current.MainPage.Navigation.PushAsync(viewAllChats);
             
-        }
+            App.Current.MainPage.Navigation.PushAsync(viewAllChats);
+
+        } 
+      
 
         private void Seleccionar(String tipo)
         {
