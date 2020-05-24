@@ -18,17 +18,20 @@ namespace Prueba.ViewModels
         AllChats viewAllChats;
         List<Alumno> listaAlumnos;
         List<AvisosGenerales> listaAvisosGenerales;
+        private String nombreEscuela;
         private Boolean contactos;
         private Boolean chatsContact;
         private Boolean Avisos;
         private Color btnChatCont;
         private Color btnContac;
         private Color btnAvisos;
+        
 
         public MainPageViewModel(Maestro maestro,Escuela escuela)
         {
             e = escuela;
             m = maestro;
+            NombreEscuela = e.NombreEscuela;
             Descargar(maestro);
             DescargarAvisos();
             BCBtnChats = Color.FromHex("EF8012");
@@ -45,6 +48,11 @@ namespace Prueba.ViewModels
 
         public Command<Alumno> VerChatCommand { get; set; }
         public Command<String> SeleccionarBoton { get; set; }
+        public String NombreEscuela
+        {
+            get { return nombreEscuela; }
+            set { nombreEscuela = value; Actualizar(); }
+        }
         public List<Alumno> ListaAlumnos 
         {
             get { return listaAlumnos; }

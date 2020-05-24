@@ -59,8 +59,7 @@ namespace Prueba.Models
         {
             if (sQLiteConnection.Table<Maestro>().Count(x => x.Clave == clave&&x.IdEscuela==idEscuela) == 0)
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-                {
+                
                     httpClient = new HttpClient();
                     Dictionary<String, String> datos = new Dictionary<String, String>()
                 {
@@ -85,11 +84,7 @@ namespace Prueba.Models
                         return false;
                     }
 
-                }
-                else
-                {
-                    throw new ArgumentException("Sin conexión a Internet");
-                }
+              
             }
             else
             {
@@ -238,9 +233,9 @@ namespace Prueba.Models
             }
             else
             {
-                throw new Exception();
+                throw new Exception("No se han podido descargar los mensajes.");
             }
-            
+
         }
 
 
