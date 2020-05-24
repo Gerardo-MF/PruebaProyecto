@@ -24,5 +24,6 @@ namespace Prueba
         {
             App.Current.MainPage=new ventanaprueba123();
         }
+
     }
 }

@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace Prueba.Droid
 {
-    [Activity(Label = "Prueba", Icon = "@mipmap/icon", Theme = "@style/MiTema", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Control escolar", Icon = "@drawable/chat", Theme = "@style/MiTema", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
        
